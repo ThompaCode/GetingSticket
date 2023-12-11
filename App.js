@@ -4,8 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Detta är snart en app för min stora snygga starka bror som jag inte alls är bättre än mig på golf</Text>
-      <Text>Detta kommer få dig att dricka som ett svin och vara smart</Text>
+      <Text>Nevermind //William</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -14,7 +13,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFEF00',
     alignItems: 'center',
     justifyContent: 'center',
   },
