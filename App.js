@@ -5,6 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Detta är snart en app för min stora snygga starka bror som jag inte alls är bättre än mig på golf</Text>
+      <Text>Detta kommer få dig att dricka som ett svin och vara smart</Text>
       <StatusBar style="auto" />
     </View>
   );
