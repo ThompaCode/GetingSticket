@@ -306,6 +306,7 @@ export default function App() {
     ],
     'AF':[
       {key:1, value:0},
+      {key:2, value:0},
     ],
   }
 
@@ -339,9 +340,8 @@ export default function App() {
   // Function to update drink volume and percentage
   const updateDrink = (volume,percentage) => {
     tempVolume = Number(drinkVolume) + volume;
-    tempPercentage = ((percentage)*volume+Number(drinkPercentage))/(drinkVolume+volume);
+    tempPercentage = (Number(percentage)*volume+Number(drinkPercentage))/(drinkVolume+volume);
     tempPercentage= Number(Math.round(parseFloat(tempPercentage + 'e' + 1)) + 'e-' + 1)
-    
     setDrinkVolume(tempVolume);
     setDrinkPercentage(tempPercentage);
   };
@@ -363,11 +363,16 @@ export default function App() {
   );
   
   const addIngredient = () => {
+    console.log(selectedDrink);//RM
+    console.log(selectedVolume);//10
+    console.log(selectedPercentage);//11
+    console.log(drinks2[selectedDrink-1].value)
+
     if (selectedDrink !== "" && selectedVolume !== "" && selectedPercentage !== "") {
       const newIngredient = {
-        drink: drinks2[selectedDrink-1].value,
-        volume: volume[selectedVolume-1].value,
-        percentage: percentage2[selectedPercentage-1].value,
+        drink: drinks2[selectedDrink].value,
+        volume: selectedVolume,
+        percentage: percentage2[selectedDrink][selectedPercentage-1].value, //Klar
       };
       updateDrink((newIngredient.volume),(newIngredient.percentage));
       setIngredients([...ingredients, newIngredient]);
@@ -393,7 +398,7 @@ export default function App() {
         <SelectList 
         setSelected={setSelectedPercentage} 
         data={percentage2[selectedDrink]}
-        defaultOption={percentage2[selectedDrink][0]}
+        //defaultOption={percentage2[selectedDrink][0]}
          />
         <Text style={styles.drinkText}>{"Drink Volume in cl"}</Text>
         <SelectList setSelected={setSelectedVolume} data={volume}
