@@ -448,7 +448,6 @@ export default function App() {
     ],
   };
   const volume = [
-    { key: 0, value: 0},
     { key: 1, value: 1 },
     { key: 2, value: 2 },
     { key: 3, value: 3 },
@@ -471,7 +470,6 @@ export default function App() {
   ];
   // Function to update drink volume and percentage
   const updateDrink = (volume, percentage) => {
-    
     newVolume = Number(drinkVolume) + volume;
     if (Number(drinkVolume) == 0) {
       
@@ -494,6 +492,7 @@ export default function App() {
     setDrinkVolume("");
     setDrinkPercentage("");
     setIngredients([]);
+
   };
 
   const renderItem = ({ item }) => (
@@ -513,7 +512,7 @@ export default function App() {
     ) {
       const newIngredient = {
         drink: drinks.find((drink) => drink.key === selectedDrink).value,
-        volume: volume[selectedVolume].value,
+        volume: volume[selectedVolume-1].value,
         percentage: percentage[selectedDrink][selectedPercentage - 1].value, //Done
       };
       //console.log(newIngredient);
@@ -521,20 +520,23 @@ export default function App() {
       setIngredients([...ingredients, newIngredient]);
     } else {
       Alert.alert("Error", "Please select both drink and volume.");
+      
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Getingsticket</Text>
-      <View style={styles.selectList}>
+      <View style={styles.view}>
+      <Text style={styles.title}>
+      Getingsticket
+      </Text>
         <Text style={styles.drinkText}>{"Ingredient Type"}</Text>
         <SelectList
-          backgroundColor={"#00F0E1"}
           search={false}
           setSelected={setSelectedDrink}
           data={drinks}
-          dropdownStyles={{ color: "B0DD00" }}
+          
+          //onSelect={(selectedDrink) => {setSelectedPercentage(0); setSelectedVolume(0)}}
         />
         <Text style={styles.drinkText}>{"Alcohol %"}</Text>
         <SelectList
@@ -547,24 +549,23 @@ export default function App() {
           search={false}
           setSelected={setSelectedVolume}
           data={volume}
+          
         />
-        <View style={styles.centerButton}>
           <Button
             title="Add Ingredient"
-            color={"#B0DD00"}
             disabled={
-              selectedDrink === "" || selectedVolume == "0" || selectedPercentage === ""
+              selectedDrink === "" || selectedVolume === ""|| selectedPercentage === "" || percentage[selectedDrink].length < selectedPercentage
             }
-            onPress={addIngredient}
+            onPress={addIngredient} 
+            
+            
           />
-          <Separator />
           <Button
-          color={"#B0DD00"}
+          //color={"#B0DD00"}
           title="Reset" 
           disabled={ingredients.length === 0}
           onPress={(ingredients) => resetData()}
         />
-        </View>
         <Text style={styles.drinkText}>
           {"Drink Volume:"}
           {drinkVolume}
@@ -576,13 +577,9 @@ export default function App() {
           {" %"}
         </Text>
         <Text style={styles.listTitle}>Ingredients</Text>
-      </View>
-      <View>
-        
         {/* Display added ingredients */}
-        <FlatList
-          backgroundColor={"#B0DD00"}
-          style={styles.flatList}
+        <FlatList  
+          //backgroundColor={"#B0DD00"}
           data={ingredients}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
@@ -597,50 +594,41 @@ const styles = StyleSheet.create({
   // Your styles...
   container: {
     flex: 1,
-    position: "relative",
-    display: "flex",
     backgroundColor: "#FFEF00",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: 20,
+  },
+  view: {
+    flex: 1,
+    backgroundColor: "#FFEF00",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: 20,
   },
   drinkText: {
-    textAlign: "center",
-    fontSize: 20,
-    marginVertical: 10,
+
   },
   title: {
     textAlign: "center",
-    marginVertical: 10,
-    marginTop: 50,
-    fontSize: 50,
+
   },
   listTitle: {
-    textAlign: "center",
-    fontSize: 35,
-    marginVertical: 10,
+
   },
   centerButton: {
-    justifyContent: "center",
-    width: 200,
-    marginVertical: 10,
-    marginHorizontal: 55,
+
   },
   selectList: {
-    marginHorizontal: 50,
-    justifyContent: "space-between",
-    placeholder: "Select an option...",
+
   },
   flatList: {
-    borderWidth: 0.3,
-    height: 210,
-    marginHorizontal: 50,
+
   },
   separator: {
-    marginVertical: 8,
-    borderBottomColor: "#FFEF00",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+
   },
   itemSeparator: {
-    width: "100%",
-    position: "relative",
-    flexGrow: 1,
+
   },
 });
