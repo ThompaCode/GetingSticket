@@ -23,16 +23,17 @@ export default function App() {
   const drinks = [
     { key: "VK", value: "Vodka" },
     { key: "TQ", value: "Tequila" },
+    { key: "AF", value: "Alcohol Free" },
+    { key: "OT", value: "Other" },
+    { key: "LQ", value: "Liqueur" },
+    { key: "GN", value: "Gin" },
     { key: "RM", value: "Rum" },
     { key: "WS", value: "Whiskey" },
-    { key: "GN", value: "Gin" },
     { key: "CG", value: "Cognac" },
     { key: "SP", value: "Sparkling Wine" },
     { key: "WN", value: "Wine" },
     { key: "CR", value: "Cider" },
     { key: "BR", value: "Beer" },
-    { key: "AF", value: "Alcohol Free" },
-    { key: "OT", value: "Other" },
   ];
   const percentage = {
     VK: [
@@ -149,6 +150,60 @@ export default function App() {
       { key: 33, value: 19.5 },
       { key: 34, value: 20 },
     ],
+    LQ: [
+        { "key": 1, "value": 15 },
+        { "key": 2, "value": 15.5 },
+        { "key": 3, "value": 16 },
+        { "key": 4, "value": 16.5 },
+        { "key": 5, "value": 17 },
+        { "key": 6, "value": 17.5 },
+        { "key": 7, "value": 18 },
+        { "key": 8, "value": 18.5 },
+        { "key": 9, "value": 19 },
+        { "key": 10, "value": 19.5 },
+        { "key": 11, "value": 20 },
+        { "key": 12, "value": 20.5 },
+        { "key": 13, "value": 21 },
+        { "key": 14, "value": 21.5 },
+        { "key": 15, "value": 22 },
+        { "key": 16, "value": 22.5 },
+        { "key": 17, "value": 23 },
+        { "key": 18, "value": 23.5 },
+        { "key": 19, "value": 24 },
+        { "key": 20, "value": 24.5 },
+        { "key": 21, "value": 25 },
+        { "key": 22, "value": 25.5 },
+        { "key": 23, "value": 26 },
+        { "key": 24, "value": 26.5 },
+        { "key": 25, "value": 27 },
+        { "key": 26, "value": 27.5 },
+        { "key": 27, "value": 28 },
+        { "key": 28, "value": 28.5 },
+        { "key": 29, "value": 29 },
+        { "key": 30, "value": 29.5 },
+        { "key": 31, "value": 30 },
+        { "key": 32, "value": 30.5 },
+        { "key": 33, "value": 31 },
+        { "key": 34, "value": 31.5 },
+        { "key": 35, "value": 32 },
+        { "key": 36, "value": 32.5 },
+        { "key": 37, "value": 33 },
+        { "key": 38, "value": 33.5 },
+        { "key": 39, "value": 34 },
+        { "key": 40, "value": 34.5 },
+        { "key": 41, "value": 35 },
+        { "key": 42, "value": 35.5 },
+        { "key": 43, "value": 36 },
+        { "key": 44, "value": 36.5 },
+        { "key": 45, "value": 37 },
+        { "key": 46, "value": 37.5 },
+        { "key": 47, "value": 38 },
+        { "key": 48, "value": 38.5 },
+        { "key": 49, "value": 39 },
+        { "key": 50, "value": 39.5 },
+        { "key": 51, "value": 40 },
+        { "key": 52, "value": 40.5 }
+    ],    
     WN: [
       { key: 1, value: 3.5 },
       { key: 2, value: 4 },
@@ -393,6 +448,7 @@ export default function App() {
     ],
   };
   const volume = [
+    { key: 0, value: 0},
     { key: 1, value: 1 },
     { key: 2, value: 2 },
     { key: 3, value: 3 },
@@ -403,6 +459,15 @@ export default function App() {
     { key: 8, value: 8 },
     { key: 9, value: 9 },
     { key: 10, value: 10 },
+    { key: 11, value: 11 },
+    { key: 12, value: 12 },
+    { key: 13, value: 13 },
+    { key: 14, value: 14 },
+    { key: 15, value: 15 },
+    { key: 16, value: 20 },
+    { key: 17, value: 25 },
+    { key: 18, value: 30 },
+
   ];
   // Function to update drink volume and percentage
   const updateDrink = (volume, percentage) => {
@@ -448,7 +513,7 @@ export default function App() {
     ) {
       const newIngredient = {
         drink: drinks.find((drink) => drink.key === selectedDrink).value,
-        volume: volume[selectedVolume - 1].value,
+        volume: volume[selectedVolume].value,
         percentage: percentage[selectedDrink][selectedPercentage - 1].value, //Done
       };
       //console.log(newIngredient);
@@ -463,34 +528,42 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Getingsticket</Text>
       <View style={styles.selectList}>
-        <Text style={styles.drinkText}>{"Drink Type"}</Text>
+        <Text style={styles.drinkText}>{"Ingredient Type"}</Text>
         <SelectList
+          backgroundColor={"#00F0E1"}
           search={false}
           setSelected={setSelectedDrink}
           data={drinks}
-          defaultOption={{key: "VK", value: "Vodka"}}
+          dropdownStyles={{ color: "B0DD00" }}
         />
-        <Text style={styles.drinkText}>{"Drink Percentage"}</Text>
+        <Text style={styles.drinkText}>{"Alcohol %"}</Text>
         <SelectList
           search={false}
           setSelected={setSelectedPercentage}
           data={percentage[selectedDrink]}
-          defaultOption={percentage[selectedDrink][1]}
         />
-        <Text style={styles.drinkText}>{"Drink Volume in cl"}</Text>
+        <Text style={styles.drinkText}>{"Ingredient Volume in cl"}</Text>
         <SelectList
           search={false}
           setSelected={setSelectedVolume}
           data={volume}
         />
-        <View style={styles.centerbutton}>
+        <View style={styles.centerButton}>
           <Button
-            title="Add to sticket?"
+            title="Add Ingredient"
+            color={"#B0DD00"}
             disabled={
-              selectedDrink === "" ||selectedVolume === "" || selectedPercentage === ""
+              selectedDrink === "" || selectedVolume == "0" || selectedPercentage === ""
             }
             onPress={addIngredient}
           />
+          <Separator />
+          <Button
+          color={"#B0DD00"}
+          title="Reset" 
+          disabled={ingredients.length === 0}
+          onPress={(ingredients) => resetData()}
+        />
         </View>
         <Text style={styles.drinkText}>
           {"Drink Volume:"}
@@ -505,8 +578,10 @@ export default function App() {
         <Text style={styles.listTitle}>Ingredients</Text>
       </View>
       <View>
+        
         {/* Display added ingredients */}
         <FlatList
+          backgroundColor={"#B0DD00"}
           style={styles.flatList}
           data={ingredients}
           renderItem={renderItem}
@@ -514,10 +589,6 @@ export default function App() {
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
         />
       </View>
-      <View style={styles.centerbutton}>
-        <Button title="Reset" onPress={(ingredients) => resetData()} />
-      </View>
-      <Separator />
     </SafeAreaView>
   );
 }
@@ -526,6 +597,8 @@ const styles = StyleSheet.create({
   // Your styles...
   container: {
     flex: 1,
+    position: "relative",
+    display: "flex",
     backgroundColor: "#FFEF00",
   },
   drinkText: {
@@ -544,11 +617,11 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginVertical: 10,
   },
-  centerbutton: {
+  centerButton: {
     justifyContent: "center",
-    width: "60%",
-    marginHorizontal: 75,
+    width: 200,
     marginVertical: 10,
+    marginHorizontal: 55,
   },
   selectList: {
     marginHorizontal: 50,
@@ -557,7 +630,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     borderWidth: 0.3,
-    height: 200,
+    height: 210,
     marginHorizontal: 50,
   },
   separator: {
