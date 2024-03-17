@@ -9,11 +9,13 @@ import {
   Alert,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
+//import RNRestart from 'react-native-restart'; 
+
 
 const Separator = () => <View style={styles.separator} />;
 
 export default function App() {
-  const [selectedDrink, setSelectedDrink] = React.useState("VK");
+  const [selectedDrink, setSelectedDrink] = React.useState("BZ");
   const [selectedVolume, setSelectedVolume] = React.useState("");
   const [selectedPercentage, setSelectedPercentage] = React.useState("");
   const [drinkVolume, setDrinkVolume] = React.useState("");
@@ -21,22 +23,24 @@ export default function App() {
   const [ingredients, setIngredients] = React.useState([]);
 
   const drinks = [
-    { key: "VK", value: "Vodka" },
-    { key: "TQ", value: "Tequila" },
-    { key: "AF", value: "Alcohol Free" },
-    { key: "OT", value: "Other" },
+    { key: "BZ", value: "Booze" },
     { key: "LQ", value: "Liqueur" },
-    { key: "GN", value: "Gin" },
-    { key: "RM", value: "Rum" },
-    { key: "WS", value: "Whiskey" },
-    { key: "CG", value: "Cognac" },
-    { key: "SP", value: "Sparkling Wine" },
+    { key: "AF", value: "Alcohol Free" },
+    { key: "BR", value: "Beer" },
+    { key: "OT", value: "Other" },
     { key: "WN", value: "Wine" },
     { key: "CR", value: "Cider" },
-    { key: "BR", value: "Beer" },
+    //{ key: "SP", value: "Sparkling Wine" },
+    //{ key: "TQ", value: "Tequila" },
+    //{ key: "GN", value: "Gin" },
+    //{ key: "RM", value: "Rum" },
+    //{ key: "WS", value: "Whiskey" },
+    //{ key: "CG", value: "Cognac" },
+
+    
   ];
   const percentage = {
-    VK: [
+    BZ: [
       { key: 1, value: 10 },
       { key: 2, value: 15 },
       { key: 3, value: 20 },
@@ -530,52 +534,55 @@ export default function App() {
       <Text style={styles.title}>
       Getingsticket
       </Text>
-        <Text style={styles.drinkText}>{"Ingredient Type"}</Text>
+        <Text style={styles.buttonTitle}>{"Ingredient Type"}</Text>
         <SelectList
           search={false}
           setSelected={setSelectedDrink}
           data={drinks}
-          
+          on
           //onSelect={(selectedDrink) => {setSelectedPercentage(0); setSelectedVolume(0)}}
         />
-        <Text style={styles.drinkText}>{"Alcohol %"}</Text>
+        <Text style={styles.buttonTitle}>{"Alcohol %"}</Text>
         <SelectList
           search={false}
           setSelected={setSelectedPercentage}
           data={percentage[selectedDrink]}
         />
-        <Text style={styles.drinkText}>{"Ingredient Volume in cl"}</Text>
+        <Text style={styles.buttonTitle}>{"Ingredient Volume in cl"}</Text>
         <SelectList
           search={false}
           setSelected={setSelectedVolume}
           data={volume}
           
         />
+        <Separator />
           <Button
             title="Add Ingredient"
             disabled={
               selectedDrink === "" || selectedVolume === ""|| selectedPercentage === "" || percentage[selectedDrink].length < selectedPercentage
             }
-            onPress={addIngredient} 
-            
-            
+            onPress={addIngredient}   
           />
+          <Separator />
           <Button
           //color={"#B0DD00"}
           title="Reset" 
           disabled={ingredients.length === 0}
           onPress={(ingredients) => resetData()}
         />
+        <Separator />
         <Text style={styles.drinkText}>
-          {"Drink Volume:"}
+          {"Drink Volume: "}
           {drinkVolume}
           {" cl"}
         </Text>
+        <Separator />
         <Text style={styles.drinkText}>
-          {"Drink Percentage:"}
+          {"Drink Percentage: "}
           {drinkPercentage}
           {" %"}
         </Text>
+        <Separator />
         <Text style={styles.listTitle}>Ingredients</Text>
         {/* Display added ingredients */}
         <FlatList  
@@ -584,6 +591,7 @@ export default function App() {
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
+          backgroundColor={"#FFEF80"}
         />
       </View>
     </SafeAreaView>
@@ -598,6 +606,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     padding: 20,
+    
   },
   view: {
     flex: 1,
@@ -607,26 +616,31 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   drinkText: {
-
+    textAlign: "center",
+    fontSize: 20,
   },
   title: {
     textAlign: "center",
+    fontSize: 50,
 
   },
   listTitle: {
+    textAlign: "center",
+    fontSize: 30,
 
+  },
+  buttonTitle: {
+    textAlign: "center",
+    fontSize: 30,
   },
   centerButton: {
-
-  },
-  selectList: {
-
-  },
-  flatList: {
-
+    justifyContent: "center",
+    alignItems: "center",
   },
   separator: {
-
+    height: 7,
+    width: "80%",
+    backgroundColor: "#CED0CE",
   },
   itemSeparator: {
 
